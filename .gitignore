@@ -1,0 +1,16 @@
+/node_modules
+/.git
+
+/cors.ts
+/db.types.ts
+/error.ts
+/jwt.ts
+/openai.ts
+/prompt.ts
+/supabase.ts
+/telegram.ts
+/test.ts
+/utils.ts
+/voice1.mp3
+/deno.json
+/deno.lock
