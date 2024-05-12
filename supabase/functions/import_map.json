@@ -4,6 +4,6 @@
     "supabase": "npm:@supabase/supabase-js@2.39.8",
     "axiod": "https://deno.land/x/axiod@0.26.2/mod.ts",
     "axiod/interfaces": "https://deno.land/x/axiod@0.26.2/interfaces.ts",
-    "djwt/validate": "https://deno.land/x/djwt/validate.ts"
+    "djwt": "https://deno.land/x/djwt@v3.0.2/mod.ts"
   }
 }
