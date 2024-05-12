@@ -1,3 +1,4 @@
+// deno-lint-ignore-file no-extra-boolean-cast
 import axiod from "axiod";
 
 import { utils } from "../_shared/utils.ts";
@@ -11,7 +12,7 @@ Deno.serve(async (req) => {
   }
   const formData = await req.formData();
   const { file } = utils.formDataToObj(formData);
-  console.log("file: ", file);
+  const authHeader = req.headers.get("Authorization")!;
 
   try {
     const { text } = await openai.audio.transcriptions.create({
@@ -19,21 +20,23 @@ Deno.serve(async (req) => {
       model: "whisper-1",
     });
 
-    const { data: taskData, error: taskError } = axiod.post(
+    const { data, status } = await axiod.post(
       Deno.env.get("SUPABASE_URL")! + "/functions/v1/text-to-task",
       {
         headers: {
-          "Authorization": req.headers.get("Authorization")!,
+          "Authorization": authHeader,
           "Content-Type": "application/json",
         },
         data: { text },
       },
     );
 
-    if (taskError) return handleErrorRes(taskError);
+    if (!data) {
+      return handleErrorRes(new Error("Error in text-to-task api"), status);
+    }
 
     return new Response(
-      JSON.stringify({ data: taskData }),
+      JSON.stringify(data),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
