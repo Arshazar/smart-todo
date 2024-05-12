@@ -40,7 +40,7 @@ Deno.serve(async (req) => {
       }]
     });
     const jsonString = res.choices[0].message.content?.trim();
-    console.log(jsonString);
+    console.log({jsonString});
     const data = JSON.parse(jsonString as string);
 
     return new Response(
