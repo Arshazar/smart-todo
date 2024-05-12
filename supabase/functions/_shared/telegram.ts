@@ -1,6 +1,8 @@
 import axiod from "axiod";
 import { Data as DataT, IAxiodResponse, IHeaderData } from "axiod/interfaces";
 
+import { createSupabaseClient } from "./supabase.ts";
+
 type ApiT = {
   method: "get" | "post" | "put" | "delete";
   url: string;
@@ -22,4 +24,15 @@ async function telegramApi(
   });
 }
 
-export { telegramApi };
+async function getUserByTgKey(tgKey: string) {
+  const supabase = createSupabaseClient(
+    "Bearer " + Deno.env.get("SUPABASE_ANON_KEY")!,
+    true,
+  );
+  return await supabase.from("users").select("*").eq(
+    "tg_key",
+    tgKey,
+  );
+}
+
+export { getUserByTgKey, telegramApi };

@@ -2,8 +2,8 @@ import { openai } from "../_shared/openai.ts";
 import { corsHeaders } from "../_shared/cors.ts";
 import { handleErrorRes } from "../_shared/error.ts";
 import { textToTaskPrompt } from "../_shared/prompt.ts";
-import { createSupabaseClient } from "../_shared/supabase.ts";
 import { verifyJwt } from "../_shared/jwt.ts";
+import { getUserByTgKey } from "../_shared/telegram.ts";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -14,16 +14,10 @@ Deno.serve(async (req) => {
 
   const auth = req.headers.get("Authorization")!;
 
-  const supabase = createSupabaseClient(
-    "Bearer " + Deno.env.get("SUPABASE_ANON_KEY")!,
-    true,
-  );
-
   if (!auth) {
     const tgKey = await verifyJwt(req.headers.get("tg-key")!);
 
-    const { data } = await supabase.from("users").select("*").eq(
-      "tg_key",
+    const { data } = await getUserByTgKey(
       tgKey,
     );
     if (!data || data === null) {
