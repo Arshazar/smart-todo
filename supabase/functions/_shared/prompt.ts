@@ -12,5 +12,9 @@ You are an AI assistant. You must summarize the list of tasks I give you.
 You must give me a brief summary of what I have to do today.
 Tasks:
 `;
+const taskToDescriptionPrompt = `
+You are an AI assistant. User gives you a task title.
+You must briefly guide him/her and describe what he/she should do to achieve his/her task.
+`;
 
-export { tasksToSummaryPrompt, textToTaskPrompt };
+export { tasksToSummaryPrompt, taskToDescriptionPrompt, textToTaskPrompt };
