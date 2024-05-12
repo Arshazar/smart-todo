@@ -53,7 +53,7 @@ const taskToDescriptionPrompt = `
 ${editorJsType}
 
 You are an AI assistant. User gives you a task title.
-You must briefly guide him/her and describe what he/she should do to achieve his/her task. Your response should only be a JSON structure of type EditorJsData.
+You must briefly guide him/her and describe what he/she should do to achieve his/her task. Your response MUST ONLY be a valid JSON structure of type EditorJsData.
 `;
 
 export { tasksToSummaryPrompt, taskToDescriptionPrompt, textToTaskPrompt };

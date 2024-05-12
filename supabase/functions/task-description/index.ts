@@ -25,32 +25,15 @@ Deno.serve(async (req) => {
     }
   }
 
-  const { id } = await req.json();
-
-  const supabase = createSupabaseClient(
-    req.headers.get("Authorization")!,
-  );
-
-  const { data, error: selectError } = await supabase
-    .from("tasks")
-    .select("title")
-    .eq("id", id).single();
-
-  if (selectError) {
-    return handleErrorRes(selectError);
-  }
-  if (!data || data?.title === null) {
-    return handleErrorRes(new Error("No such task found."));
-  }
+  const { title } = await req.json();
 
   try {
     const res = await openai.chat.completions.create({
       model: "gpt-3.5-turbo-0613",
       messages: [{ role: "system", content: taskToDescriptionPrompt }, {
         role: "user",
-        content: data.title,
-      }],
-      temperature: 0,
+        content: title,
+      }]
     });
     const description = res.choices[0].message.content?.trim();
     console.log(description);
