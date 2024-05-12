@@ -36,7 +36,7 @@ const textToTaskPrompt = `
 
 ${editorJsType}
 
-You are an AI assistant. I want to input a task text into a task object.
+You are an AI assistant. I want to input a task text into a task object. YOU MUST ONLY return a valid JSON structure, don't include any other text.
     return an array of objects : { title: string; note: EditorJsData; note_string: string; due_date: Datetime; }, considering these tips:
     1. set null for time and values with no data,
     2. note_string equals to the task text inside note json.
