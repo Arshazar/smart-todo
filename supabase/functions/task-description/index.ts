@@ -33,7 +33,8 @@ Deno.serve(async (req) => {
       messages: [{ role: "system", content: taskToDescriptionPrompt }, {
         role: "user",
         content: title,
-      }]
+      }],
+      temperature: 0.5,
     });
     const description = res.choices[0].message.content?.trim();
     console.log(description);

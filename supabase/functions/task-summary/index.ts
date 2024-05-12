@@ -48,7 +48,8 @@ Deno.serve(async (req) => {
       messages: [{
         role: "user",
         content: `${tasksToSummaryPrompt} ${JSON.stringify(tasks)}`,
-      }]
+      }],
+      temperature: 0.5,
     });
     const summary = res.choices[0].message.content?.trim();
 

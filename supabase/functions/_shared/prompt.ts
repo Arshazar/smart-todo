@@ -40,10 +40,10 @@ type Task = {
     title: string;
     note: EditorJsData | null;
     note_string: string | null;
-    due_date: string | null; // datetime but in string format
+    due_date: string | null; // ISO 8601 string. e.g. "2019-01-25T02:00:00.000Z"
 };
 
-You are an AI assistant. I want to input a task text into a Task object. YOU MUST ONLY return a valid JSON structure of type Task. Don't include any other text.
+You are an AI assistant. I want to input a task text into a Task object. YOU MUST ONLY return a valid JSON structure of type Task. Don't return an array. Only an object of type Task.
     
 considering these tips:
     1. set null for time and values with no data,
