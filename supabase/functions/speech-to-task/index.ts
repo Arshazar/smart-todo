@@ -22,12 +22,12 @@ Deno.serve(async (req) => {
 
     const { data, status } = await axiod.post(
       Deno.env.get("SUPABASE_URL")! + "/functions/v1/text-to-task",
+      JSON.stringify({ text }),
       {
         headers: {
           "Authorization": authHeader,
           "Content-Type": "application/json",
         },
-        data: { text },
       },
     );
 

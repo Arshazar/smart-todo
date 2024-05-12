@@ -1,26 +1,25 @@
 import axiod from "axiod";
-import { Data as DataT, IAxiodResponse, IHeaderData } from "axiod/interfaces";
+import { IAxiodResponse, IRequest } from "axiod/interfaces";
 
 import { createSupabaseClient } from "./supabase.ts";
 
 type ApiT = {
-  method: "get" | "post" | "put" | "delete";
+  method: "get" | "post" | "put" | "delete" | "patch";
   url: string;
-  headers: IHeaderData[];
-  data?: DataT;
+  config?: IRequest;
 };
 
 async function telegramApi(
-  { method, url, headers, data }: ApiT,
+  { method, url, config }: ApiT,
 ): Promise<IAxiodResponse> {
   return await axiod[method](url, {
+    ...config,
     headers: {
       "Authorization": "Bearer " + Deno.env.get("SUPABASE_ANON_KEY")!,
       "apikey": Deno.env.get("SUPABASE_ANON_KEY")!,
       "Content-Type": "application/json",
-      ...headers,
+      ...config?.headers,
     },
-    data,
   });
 }
 
