@@ -46,6 +46,11 @@ class Utils {
     });
     return newData;
   };
+  getTodayDate = () => {
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().split("T")[0];
+    return formattedDate;
+  };
 }
 
 const utils = new Utils();
