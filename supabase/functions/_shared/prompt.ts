@@ -1,7 +1,6 @@
-const textToTaskPrompt = `
-
+const editorJsType = `
 \`\`\`
-type TaskNote = {
+type EditorJsData = {
     time: number;
     blocks: Block[];
     version: string;
@@ -31,9 +30,14 @@ interface HeaderBlock extends BaseBlock {
     };
 }
 \`\`\`
+`
+
+const textToTaskPrompt = `
+
+${editorJsType}
 
 You are an AI assistant. I want to input a task text into a task object.
-    return an array of objects : { title: string; note: TaskNote; note_string: string; due_date: Datetime; }, considering these tips:
+    return an array of objects : { title: string; note: EditorJsData; note_string: string; due_date: Datetime; }, considering these tips:
     1. set null for time and values with no data,
     2. note_string equals to the task text inside note json.
     3. Return value must to be Array of object with String keys to use JSON parse method.
@@ -46,8 +50,10 @@ You must give me a brief summary of what I have to do today.
 Tasks:
 `;
 const taskToDescriptionPrompt = `
+${editorJsType}
+
 You are an AI assistant. User gives you a task title.
-You must briefly guide him/her and describe what he/she should do to achieve his/her task.
+You must briefly guide him/her and describe what he/she should do to achieve his/her task. Your response should only be a JSON structure of type EditorJsData.
 `;
 
 export { tasksToSummaryPrompt, taskToDescriptionPrompt, textToTaskPrompt };
