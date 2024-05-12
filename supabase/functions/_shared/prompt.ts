@@ -1,6 +1,39 @@
 const textToTaskPrompt = `
+
+\`\`\`
+type TaskNote = {
+    time: number;
+    blocks: Block[];
+    version: string;
+};
+
+type Block = ParagraphBlock | HeaderBlock;
+
+interface BaseBlock {
+    type: string;
+    data: {
+        text: string;
+    };
+}
+
+interface ParagraphBlock extends BaseBlock {
+    type: "paragraph";
+    data: {
+        text: string;
+    };
+}
+
+interface HeaderBlock extends BaseBlock {
+    type: "header";
+    data: {
+        text: string;
+        level: number;
+    };
+}
+\`\`\`
+
 You are an AI assistant. I want to input a task text into a task object.
-    return an array of objects : { title: string; note: json; note_string: string; due_date: Datetime; }, considering these tips:
+    return an array of objects : { title: string; note: TaskNote; note_string: string; due_date: Datetime; }, considering these tips:
     1. set null for time and values with no data,
     2. note_string equals to the task text inside note json.
     3. Return value must to be Array of object with String keys to use JSON parse method.
