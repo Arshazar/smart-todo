@@ -37,8 +37,7 @@ Deno.serve(async (req) => {
       }, {
         role: "user",
         content: text,
-      }],
-      temperature: 0,
+      }]
     });
     const jsonString = res.choices[0].message.content?.trim();
     console.log(jsonString);
