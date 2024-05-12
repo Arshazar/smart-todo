@@ -40,7 +40,7 @@ type Task = {
     title: string;
     note: EditorJsData | null;
     note_string: string | null;
-    due_date: Datetime | null;
+    due_date: string | null; // datetime but in string format
 };
 
 You are an AI assistant. I want to input a task text into a Task object. YOU MUST ONLY return a valid JSON structure of type Task. Don't include any other text.
